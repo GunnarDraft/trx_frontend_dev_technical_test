@@ -1,12 +1,11 @@
 'use client'
-import { useState } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled } from '@/styles/styles';
+import { useCallback, useState } from 'react'; 
+import { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled, MapContainer } from '@/styles/styles';
 import carMock from '../../../assets/carMock.json'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
-import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
+import { TextField } from '@mui/material';
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
   { field: 'placa', headerName: 'Placa', width: 90 },
@@ -24,17 +23,17 @@ const columns: GridColDef[] = [
   },
   {
     field: 'asientos',
-    headerName: 'Asientos', 
-    width: 110,
+    headerName: 'Asientos',
+    width: 70,
     editable: false,
   },
   {
     field: 'seguro',
     headerName: 'Seguro',
     editable: false,
-    width: 180, 
+    width: 180,
   },
-  
+
   {
     field: 'segure numebr',
     headerName: 'Número de seguro',
@@ -43,8 +42,8 @@ const columns: GridColDef[] = [
   },
   {
     field: 'BRAND',
-    headerName: 'Marca', 
-    width: 70,
+    headerName: 'Marca',
+    width: 90,
     editable: false,
   },
 
@@ -52,7 +51,7 @@ const columns: GridColDef[] = [
     field: 'MODEL',
     headerName: 'Modelo',
     editable: false,
-    width: 80,
+    width: 110,
   },
   {
     field: 'YEAR',
@@ -65,11 +64,11 @@ const columns: GridColDef[] = [
     field: 'COLOR',
     headerName: 'Color',
     type: 'number',
-    width: 80,
+    width: 90,
     editable: false,
   },
 ];
- 
+
 const containerStyle = {
   width: '600px',
   height: '600px'
@@ -93,14 +92,10 @@ interface IVehiculo {
   COLOR: string;
 }
 
-export default function Home() {
-  const [map, setMap] = useState(null)
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || ""
-  })
+export default function Home() { 
+
   const vehiculoConIDs = carMock.map((objeto, indice) => ({
-    id: indice + 1,  
+    id: indice + 1,
     ...objeto,
   }));
   const [vehicleList] = useState<IVehiculo[]>(vehiculoConIDs)
@@ -121,44 +116,29 @@ export default function Home() {
       vehicle.BRAND.toLowerCase().includes(filter.toLowerCase()) ||
       vehicle.MODEL.toLowerCase().includes(filter.toLowerCase()) ||
       vehicle.YEAR.toString().includes(filter.toLowerCase()) ||
-      vehicle.COLOR.toLowerCase().includes(filter.toLowerCase()) 
-      )
+      vehicle.COLOR.toLowerCase().includes(filter.toLowerCase())
+    )
   });
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredVehicles.length) : 0;
-
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
- 
 
   return (
     <Main>
       <MainContainer>
-        {isLoaded ? <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-        >
-        </GoogleMap> : <></>}
+        <APIProvider apiKey={process.env.NEXT_PUBLIC_API_KEY as string}>
+          <MapContainer>
+            <Map
+              zoom={3}
+              center={{ lat: 22.54992, lng: 0 }}
+              gestureHandling={'greedy'}
+              disableDefaultUI={true}
+              mapId={'9be83f7a4c774553'}
+            />
+          </MapContainer>
+        </APIProvider>
         <VeicleList>
-         
-          <SearchVeicle> 
+
+          <SearchVeicle>
             Lista de veiculos &nbsp;
-          
+
             <TextField
               id="Buscar"
               label="Buscar"
@@ -166,20 +146,22 @@ export default function Home() {
               value={filter}
               onChange={handleFilterChange} />
           </SearchVeicle>
-          <DataGridStyled
-            rows={filteredVehicles}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
+          {filteredVehicles.length > 0 ?
+            <DataGridStyled
+              rows={filteredVehicles}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
                 },
-              },
-            }}
-            pageSizeOptions={[5]} 
-            disableRowSelectionOnClick 
-          />
-          
+              }}
+              pageSizeOptions={[5]}
+              disableRowSelectionOnClick
+            />
+            : <div>Sin Resultados</div>}
+
         </VeicleList>
       </MainContainer>
     </Main>

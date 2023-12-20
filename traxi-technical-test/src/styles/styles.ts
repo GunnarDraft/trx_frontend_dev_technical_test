@@ -41,4 +41,8 @@ const SearchVeicle = styled.div`
 const DataGridStyled = styled(DataGrid)`
     background:#ccc;
 `
-export { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled}
+const MapContainer = styled.div`
+height:600px;
+width:600px;
+`
+export { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled, MapContainer }
