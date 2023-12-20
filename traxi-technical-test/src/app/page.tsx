@@ -85,7 +85,10 @@ export default function Home() {
           zoom={10}
         >
         </GoogleMap> : <></>}
-        <SearchVeicle> 
+        <VeicleList>
+         
+          <SearchVeicle> 
+            Lista de veiculos &nbsp;
           <input
             type="text"
             placeholder="Buscar"
@@ -93,8 +96,6 @@ export default function Home() {
             onChange={handleFilterChange}
           />
         </SearchVeicle>
-        <VeicleList>
-          lista de veiculos 
           {filteredVehicles.length > 0 ?
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">

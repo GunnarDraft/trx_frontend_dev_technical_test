@@ -1,6 +1,16 @@
 import styled from 'styled-components'
 
+const Main = styled.main`
+    background:#666;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6rem;
+    min-height: 100vh; 
+`
 const MainContainer = styled.div`
+    background:#333;
     display: flex;
     flex-flow:column;
     flex:1;
@@ -11,30 +21,21 @@ const MainContainer = styled.div`
     max-width: var(--max-width);
     width: 100%;
     z-index: 2;
-    font-family: var(--font-mono);
-    border: 1px solid red;
-    height:100%;
+    font-family: var(--font-mono); 
+    height:100%; 
+    padding:4px;
 `
-const Main = styled.main`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6rem;
-    min-height: 100vh;
-    border: 1px solid blue;
-`
+
 const VeicleList = styled.div`
-    min-height: 200px;
-    border: 1px solid cyan;
+    margin:4px;
+    min-height: 200px; 
     align-self: stretch;
     flex:1;
 `
-const SearchVeicle = styled.div` 
-    border: 1px solid yellow;
+const SearchVeicle = styled.div`  
+    margin:4px;
     align-self: stretch;
-    flex:1;
-    height: 64px;
+    flex:1; 
     
 `
 export { Main, MainContainer, VeicleList, SearchVeicle }
