@@ -1,8 +1,7 @@
 'use client'
-import { useCallback, useState } from 'react';
-import styles from './page.module.css'
+import { useState } from 'react'; 
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import styled from 'styled-components'
+import { Main, MainContainer, VeicleList } from '@/styles/styles';
 const containerStyle = {
   width: '600px',
   height: '600px'
@@ -24,27 +23,7 @@ const center = {
 //   return res.json()
 // }
 
-const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
-  border: 1px solid red;
-  height:100%;
-`
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-  border: 1px solid blue;
-`
+
 export default function Home() {
   // const data = await getData()
   const [map, setMap] = useState(null)
@@ -62,7 +41,8 @@ export default function Home() {
           zoom={10}
         >
         </GoogleMap> : <></>}
-   
+        <VeicleList> 
+        </VeicleList>
       </MainContainer>
     </Main>
   )
