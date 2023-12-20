@@ -3,9 +3,7 @@ import { useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { Main, MainContainer, VeicleList, SearchVeicle } from '@/styles/styles';
 import carMock from '../../../assets/carMock.json'
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
-import { useTheme } from 'styled-components';
-import { FirstPage, KeyboardArrowLeft, KeyboardArrowRight, LastPage } from '@mui/icons-material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
 const containerStyle = {
   width: '600px',
@@ -17,16 +15,6 @@ const center = {
   lng: -38.523
 };
 
-
-// async function getData() {
-//   const res = await fetch('')
-
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data')
-//   }
-
-//   return res.json()
-// }
 interface IVehiculo {
   placa: string;
   "numero economico": string;
@@ -44,7 +32,7 @@ export default function Home() {
   const [map, setMap] = useState(null)
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || "AIzaSyCByFHPYqmrJIPJKDzyw2sEbYz4jZR2YVE"
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || ""
   })
   const [vehicleList] = useState<IVehiculo[]>(carMock)
   const [filter, setFilter] = useState('')
@@ -55,7 +43,17 @@ export default function Home() {
   };
 
   const filteredVehicles = vehicleList.filter((vehicle) => {
-    return (vehicle.placa.toLowerCase().includes(filter.toLowerCase()))
+    return (
+      vehicle.placa.toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle['numero economico'].toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle.asientos.toString().includes(filter.toLowerCase()) ||
+      vehicle.seguro.toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle['segure numebr'].toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle.BRAND.toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle.MODEL.toLowerCase().includes(filter.toLowerCase()) ||
+      vehicle.YEAR.toString().includes(filter.toLowerCase()) ||
+      vehicle.COLOR.toLowerCase().includes(filter.toLowerCase()) 
+      )
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -76,63 +74,7 @@ export default function Home() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const columns = [
-    { field: 'id', headerName: 'Placa', width: 90 },
-    {
-      field: 'numero economico',
-      headerName: 'Número Económico',
-      width: 150,
-      editable: false,
-    },
-    {
-      field: 'vim',
-      headerName: 'VIM',
-      width: 110,
-      editable: false,
-    },
-    {
-      field: 'asientos',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'seguro',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'segure numebr',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'BRAND',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'MODEL',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'YEAR',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-    {
-      field: 'COLOR',
-      headerName: 'Full name',
-      width: 160,
-      editable: false,
-    },
-  ];
+ 
 
   return (
     <Main>
