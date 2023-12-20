@@ -85,11 +85,10 @@ export default function Home() {
           zoom={10}
         >
         </GoogleMap> : <></>}
-        <SearchVeicle>
-          componente de busqueda
+        <SearchVeicle> 
           <input
             type="text"
-            placeholder="Buscar por placa"
+            placeholder="Buscar"
             value={filter}
             onChange={handleFilterChange}
           />
@@ -153,7 +152,7 @@ export default function Home() {
                   ))}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={6} />
+                      <TableCell colSpan={10} />
                     </TableRow>
                   )}
                 </TableBody>
@@ -161,7 +160,7 @@ export default function Home() {
                   <TableRow>
                     <TablePagination
                       rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                      colSpan={3}
+                      colSpan={10}
                       count={filteredVehicles.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
