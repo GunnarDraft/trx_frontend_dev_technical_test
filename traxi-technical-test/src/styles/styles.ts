@@ -30,4 +30,11 @@ const VeicleList = styled.div`
     align-self: stretch;
     flex:1;
 `
-export { Main, MainContainer, VeicleList }
+const SearchVeicle = styled.div` 
+    border: 1px solid yellow;
+    align-self: stretch;
+    flex:1;
+    height: 64px;
+    
+`
+export { Main, MainContainer, VeicleList, SearchVeicle }

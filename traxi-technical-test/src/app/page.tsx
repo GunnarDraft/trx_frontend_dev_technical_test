@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react'; 
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { Main, MainContainer, VeicleList } from '@/styles/styles';
+import { Main, MainContainer, VeicleList, SearchVeicle } from '@/styles/styles';
+import carMock from '../../../assets/carMock.json'
 const containerStyle = {
   width: '600px',
   height: '600px'
@@ -41,7 +42,13 @@ export default function Home() {
           zoom={10}
         >
         </GoogleMap> : <></>}
+        <SearchVeicle>
+          componente de busqueda
+        </SearchVeicle>
         <VeicleList> 
+          lista de veiculos
+
+          {carMock.map((car) => <div id={car.placa}>{car.placa}</div>)}
         </VeicleList>
       </MainContainer>
     </Main>
