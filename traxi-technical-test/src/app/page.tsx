@@ -1,10 +1,75 @@
 'use client'
 import { useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { Main, MainContainer, VeicleList, SearchVeicle } from '@/styles/styles';
+import { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled } from '@/styles/styles';
 import carMock from '../../../assets/carMock.json'
-import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, TextField } from '@mui/material';
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
+
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+
+const columns: GridColDef[] = [
+  { field: 'placa', headerName: 'Placa', width: 90 },
+  {
+    field: 'numero economico',
+    headerName: 'Número Económico',
+    width: 120,
+    editable: false,
+  },
+  {
+    field: 'vim',
+    headerName: 'VIM',
+    width: 150,
+    editable: false,
+  },
+  {
+    field: 'asientos',
+    headerName: 'Asientos', 
+    width: 110,
+    editable: false,
+  },
+  {
+    field: 'seguro',
+    headerName: 'Seguro',
+    editable: false,
+    width: 180, 
+  },
+  
+  {
+    field: 'segure numebr',
+    headerName: 'Número de seguro',
+    editable: false,
+    width: 120,
+  },
+  {
+    field: 'BRAND',
+    headerName: 'Marca', 
+    width: 70,
+    editable: false,
+  },
+
+  {
+    field: 'MODEL',
+    headerName: 'Modelo',
+    editable: false,
+    width: 80,
+  },
+  {
+    field: 'YEAR',
+    headerName: 'Año',
+    type: 'number',
+    width: 60,
+    editable: false,
+  },
+  {
+    field: 'COLOR',
+    headerName: 'Color',
+    type: 'number',
+    width: 80,
+    editable: false,
+  },
+];
+ 
 const containerStyle = {
   width: '600px',
   height: '600px'
@@ -34,7 +99,11 @@ export default function Home() {
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY || ""
   })
-  const [vehicleList] = useState<IVehiculo[]>(carMock)
+  const vehiculoConIDs = carMock.map((objeto, indice) => ({
+    id: indice + 1,  
+    ...objeto,
+  }));
+  const [vehicleList] = useState<IVehiculo[]>(vehiculoConIDs)
   const [filter, setFilter] = useState('')
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,97 +158,28 @@ export default function Home() {
          
           <SearchVeicle> 
             Lista de veiculos &nbsp;
-          <input
-            type="text"
-            placeholder="Buscar"
-            value={filter}
-            onChange={handleFilterChange}
+          
+            <TextField
+              id="Buscar"
+              label="Buscar"
+              variant="outlined"
+              value={filter}
+              onChange={handleFilterChange} />
+          </SearchVeicle>
+          <DataGridStyled
+            rows={filteredVehicles}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5]} 
+            disableRowSelectionOnClick 
           />
-        </SearchVeicle>
-          {filteredVehicles.length > 0 ?
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="right">Placa</TableCell>
-                    <TableCell align="right">Número Económico</TableCell>
-                    <TableCell align="right">VIM</TableCell>
-                    <TableCell align="right">Asientos</TableCell>
-                    <TableCell align="right">Seguro</TableCell>
-                    <TableCell align="right">Número de seguro</TableCell>
-                    <TableCell align="right">Marca</TableCell>
-                    <TableCell align="right">Modelo</TableCell>
-                    <TableCell align="right">Año</TableCell>
-                    <TableCell align="right">Color</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {(rowsPerPage > 0
-                    ? filteredVehicles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    : filteredVehicles
-                  ).map((row) => (
-                    <TableRow key={row.placa}>
-                      <TableCell component="th" scope="row">
-                        {row.placa}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row['numero economico']}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.vim}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.asientos}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.seguro}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row["segure numebr"]}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.BRAND}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.MODEL}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.YEAR}
-                      </TableCell>
-                      <TableCell style={{ width: 160 }} align="right">
-                        {row.COLOR}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                  {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                      <TableCell colSpan={10} />
-                    </TableRow>
-                  )}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                      colSpan={10}
-                      count={filteredVehicles.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      SelectProps={{
-                        inputProps: {
-                          'aria-label': 'rows per page',
-                        },
-                        native: true,
-                      }}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActions}
-                    />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </TableContainer>
-            : <div>Sin Resultados</div>}
+          
         </VeicleList>
       </MainContainer>
     </Main>

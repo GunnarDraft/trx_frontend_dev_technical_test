@@ -1,3 +1,4 @@
+import { DataGrid } from '@mui/x-data-grid'
 import styled from 'styled-components'
 
 const Main = styled.main`
@@ -36,6 +37,8 @@ const SearchVeicle = styled.div`
     margin:4px;
     align-self: stretch;
     flex:1; 
-    
 `
-export { Main, MainContainer, VeicleList, SearchVeicle }
+const DataGridStyled = styled(DataGrid)`
+    background:#ccc;
+`
+export { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled}
