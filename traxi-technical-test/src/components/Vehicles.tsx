@@ -1,8 +1,9 @@
 'use client'
 import { VeicleList, SearchVeicle, DataGridStyled, Text } from '@/styles/styles';
 import { TextField } from '@mui/material';
-import { useVehicles } from '../hooks/useVehicles'
+import { useVehicles } from '@/hooks/useVehicles'
 import { GridColDef } from '@mui/x-data-grid';
+import { useEffect } from 'react';
 
 const columns: GridColDef[] = [
     { field: 'placa', headerName: 'Placa', width: 90 },
@@ -65,9 +66,21 @@ const columns: GridColDef[] = [
         editable: false,
     },
 ];
+type CoordinatesMarker = {
+    key: string;
+    id: number;
+    lat: number;
+    lng: number;
+};
 
-export default function VeicleListComponent() {
-    const { filter, handleFilterChange, filteredVehicles } = useVehicles();
+export default function VeicleListComponent(vehicleCoordinates: CoordinatesMarker[]) {
+    const { filter, handleFilterChange, filteredVehicles, setVehicleSelected, setPositionCoordinate, position } = useVehicles();
+    useEffect(() => { setPositionCoordinate(vehicleCoordinates); }, [vehicleCoordinates])
+ 
+
+    useEffect(() => {
+        console.log(position)
+    }, [position])
     return (
         <VeicleList>
             <SearchVeicle>
@@ -93,7 +106,7 @@ export default function VeicleListComponent() {
                         },
                     }}
                     pageSizeOptions={[5]}
-                    onRowClick={(row)=>console.log(row.id)}
+                    onRowClick={(row) => setVehicleSelected(row.id as number)}
                     disableRowSelectionOnClick
                 />
                 : <div>Sin Resultados</div>}
