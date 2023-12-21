@@ -3,8 +3,6 @@ import { Main, MainContainer} from '@/styles/styles';
 import MapComponent from '../components/map'
 import VeicleListComponent  from '../components/Veicles';
 
-
-
 async function getData() {
   const res = await fetch('https://nxflga6y8i.execute-api.us-east-1.amazonaws.com/route/dummy')
 
@@ -15,9 +13,9 @@ async function getData() {
   return res.json()
 }
 
-export default async function Home() {
-  const data = await getData()
-  console.log(data[0].geojson.features[0].geometry.coordinates)
+export default function Home() {
+  // const data = await getData()
+  // console.log(data[0].geojson.features[0].geometry.coordinates)
   return (
     <Main>
       <MainContainer>

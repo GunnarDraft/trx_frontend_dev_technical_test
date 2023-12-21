@@ -1,6 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid'
 import styled from 'styled-components'
 import { Typography } from '@mui/material';
+
 const Main = styled.main`
     background:#666;
     display: flex;
@@ -26,7 +27,6 @@ const MainContainer = styled.div`
     height:100%; 
     padding:4px;
 `
-
 const VeicleList = styled.div`
     margin:4px;
     min-height: 200px; 
@@ -50,13 +50,12 @@ const DataGridStyled = styled(DataGrid)`
     background:#ccc;
 `
 const MapContainer = styled.div`
-height:1084px;
-width:1084px;
+    height:1084px;
+    width:1084px;
 `
-
 const Text = styled(Typography)`
-font-size: 2rem ;
-margin-right:8px; 
-padding-right:8px;
+    font-size: 2rem ;
+    margin-right:8px; 
+    padding-right:8px;
 `
 export { Main, MainContainer, VeicleList, SearchVeicle, DataGridStyled, MapContainer, Text }

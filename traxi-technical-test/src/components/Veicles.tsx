@@ -93,6 +93,7 @@ export default function VeicleListComponent() {
                         },
                     }}
                     pageSizeOptions={[5]}
+                    onRowClick={(row)=>console.log(row.id)}
                     disableRowSelectionOnClick
                 />
                 : <div>Sin Resultados</div>}
