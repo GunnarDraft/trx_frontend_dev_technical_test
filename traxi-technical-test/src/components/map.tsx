@@ -54,7 +54,7 @@ export default function MapComponent({ markerPosition }: MapComponentProps) {
                     maxZoom={17}
                     minZoom={10}
                     center={vehicle}
-                    mapId={'9be83f7a4c774553'}
+                    mapId={'ea50c2cff24dbc08'}
                 >
                     <Directions /> 
                     <AdvancedMarker

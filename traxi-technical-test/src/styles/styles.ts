@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Typography } from '@mui/material';
 
 const Main = styled.div`
-    background:#666;
+    background:#E7F3F3;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,32 +40,31 @@ const VeicleList = styled.div`
     margin:32px;  
 `
 const SearchVeicle = styled.div`   
-
     padding:8px;
     margin:8px 0 ;
     align-self: stretch;
     flex:1;    
     width:1100px; 
     max-width:calc(100vw - 64px);
-    background:#cfdada4f;
-    backdrop-filter:blur(18px);
+    background:#effafa6f; 
+    backdrop-filter:blur(18px) contrast(130%) saturate(140%);
     border-radius:4px;
     display:flex;
     flex-flow:wrap;
     align-items:center;
     justify-content:flex-start; 
     max-height:69px;
-    box-shadow: 1px 1px 4px #6f6f6f6f;
+    box-shadow: 1px 1px 4px #6f6f6f3f;
 `
 const DataGridStyled = styled(DataGrid)`
-    background:#cfdada3f;
-    backdrop-filter:blur(18px);
+    background:#effafa6f;
+    backdrop-filter:blur(18px) contrast(130%) saturate(140%);
     max-width:100vw;
     border-color:#afbaba6f !important;
    & div{
        border-color:#afbaba6f !important;
    } 
-    box-shadow: 1px 1px 4px #6f6f6f6f;
+    box-shadow: 1px 1px 4px #6f6f6f3f;
 
 `
 const MapContainer = styled.div`

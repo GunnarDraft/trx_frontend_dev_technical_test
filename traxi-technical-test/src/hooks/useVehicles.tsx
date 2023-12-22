@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export const useVehicles = () => {
 
-    const [filter, setFilter] = useState('')
+    const [filter, setFilter] = useState<string>('')
 
     const vehicleWithIDs = carMock.map((objeto, indice) => ({
         id: indice + 1,
