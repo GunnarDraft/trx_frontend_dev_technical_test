@@ -1,9 +1,8 @@
 'use client'
-import { VeicleList, SearchVeicle, DataGridStyled, Text } from '@/styles/styles';
+import { VeicleList, SearchVeicle, DataGridStyled, WithoutData } from '@/styles/styles';
 import { TextField } from '@mui/material';
 import { useVehicles } from '@/hooks/useVehicles'
 import { GridColDef } from '@mui/x-data-grid';
-import { useEffect } from 'react';
 
 const columns: GridColDef[] = [
     { field: 'placa', headerName: 'Placa', width: 90 },
@@ -66,30 +65,22 @@ const columns: GridColDef[] = [
         editable: false,
     },
 ];
-type CoordinatesMarker = {
-    key: string;
-    id: number;
-    lat: number;
-    lng: number;
+
+type VeicleListComponentProps = {
+    onRowClick: (rowId: number) => void;
 };
+export default function VeicleListComponent({ onRowClick }: VeicleListComponentProps) {
+    
+    const { filter, handleFilterChange, filteredVehicles } = useVehicles();
 
-export default function VeicleListComponent(vehicleCoordinates: CoordinatesMarker[]) {
-    const { filter, handleFilterChange, filteredVehicles, setVehicleSelected, setPositionCoordinate, position } = useVehicles();
-    useEffect(() => { setPositionCoordinate(vehicleCoordinates); }, [vehicleCoordinates])
- 
+    return (<>
 
-    useEffect(() => {
-        console.log(position)
-    }, [position])
-    return (
         <VeicleList>
             <SearchVeicle>
-                <Text variant="h5" component="div" gutterBottom>
-                    Lista de vehículos &nbsp;
-                </Text>
                 <TextField
+                    fullWidth
                     id="Buscar"
-                    label="Buscar"
+                    label="Busqueda avanzada"
                     variant="outlined"
                     value={filter}
                     onChange={handleFilterChange} />
@@ -106,9 +97,11 @@ export default function VeicleListComponent(vehicleCoordinates: CoordinatesMarke
                         },
                     }}
                     pageSizeOptions={[5]}
-                    onRowClick={(row) => setVehicleSelected(row.id as number)}
+                    onRowClick={(row) => onRowClick(row.id as number)}
                     disableRowSelectionOnClick
                 />
-                : <div>Sin Resultados</div>}
-        </VeicleList>)
+                : <WithoutData>Sin Resultados</WithoutData>}
+        </VeicleList>
+    </>
+    )
 }
