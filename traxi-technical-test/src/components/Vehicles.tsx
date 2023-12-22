@@ -87,6 +87,7 @@ export default function VeicleListComponent({ onRowClick }: VeicleListComponentP
             </SearchVeicle>
             {filteredVehicles.length > 0 ?
                 <DataGridStyled
+                    density='compact'
                     rows={filteredVehicles}
                     columns={columns}
                     initialState={{

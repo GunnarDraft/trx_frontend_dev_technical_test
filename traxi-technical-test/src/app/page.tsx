@@ -2,9 +2,7 @@
 import { Main, MainContainer } from '@/styles/styles'; 
 import VeicleListComponent from '../components/Vehicles'; 
 import MapComponent from '@/components/Map';
-import { useEffect, useState } from 'react';
-
-type CoordinatesMarker = google.maps.LatLngLiteral & { key: string };
+import { useState } from 'react';
 
 export default function Home() {
 

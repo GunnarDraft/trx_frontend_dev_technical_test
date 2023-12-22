@@ -1,5 +1,5 @@
 
-import carMock from '../../../assets/carMock.json'
+import carMock from '../../public/assets/carMock.json'
 import { useState } from 'react';
 
 export const useVehicles = () => {

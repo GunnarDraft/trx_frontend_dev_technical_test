@@ -54,7 +54,7 @@ const SearchVeicle = styled.div`
     flex-flow:wrap;
     align-items:center;
     justify-content:flex-start; 
-    max-height:min-content;
+    max-height:69px;
     box-shadow: 1px 1px 4px #6f6f6f6f;
 `
 const DataGridStyled = styled(DataGrid)`

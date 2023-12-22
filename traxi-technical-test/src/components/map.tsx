@@ -2,7 +2,7 @@
 import { MapContainer } from '@/styles/styles';
 import { APIProvider, AdvancedMarker, InfoWindow, Map, useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
-import formatted from "../../../assets/data";
+import formatted from "../../public/assets/data";
 import { useVehicles } from '@/hooks/useVehicles'
 
 type MapComponentProps = {
