@@ -30,12 +30,13 @@ const VeicleList = styled.div`
     display:flex;
     flex-flow:column;
     bottom:0; 
-    left:calc(50% - 550px);
-    min-height: 200px; 
-    align-self: stretch;
-    width:100%;
-    max-width:1100px;
-    flex:1;
+    left:calc(50% - 582px);
+    @media (max-width: 1228px) {
+        left:0; 
+  }
+    min-height: 200px;  
+    width:1100px;
+    max-width:calc(100vw - 64px); 
     margin:32px;  
 `
 const SearchVeicle = styled.div`   
@@ -44,9 +45,8 @@ const SearchVeicle = styled.div`
     margin:8px 0 ;
     align-self: stretch;
     flex:1;    
-    width:100%; 
-    max-width:1082px;
-    min-width: min-content;   
+    width:1100px; 
+    max-width:calc(100vw - 64px);
     background:#cfdada4f;
     backdrop-filter:blur(18px);
     border-radius:4px;
@@ -60,7 +60,7 @@ const SearchVeicle = styled.div`
 const DataGridStyled = styled(DataGrid)`
     background:#cfdada3f;
     backdrop-filter:blur(18px);
-    max-width:max-content;
+    max-width:100vw;
     border-color:#afbaba6f !important;
    & div{
        border-color:#afbaba6f !important;
@@ -81,7 +81,7 @@ const Text = styled(Typography)`
 `
 const WithoutData = styled.div`
     width:100%; 
-    max-width:1082px; 
+    max-width:1100px; 
     height:68px;
     padding:14px;
     font-size:1.6rem;
