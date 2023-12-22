@@ -63,7 +63,10 @@ const DataGridStyled = styled(DataGrid)`
     border-color:#afbaba6f !important;
    & div{
        border-color:#afbaba6f !important;
-   } 
+    } 
+    .MuiDataGrid-row:hover{
+     cursor:pointer
+    }
     box-shadow: 1px 1px 4px #6f6f6f3f;
 
 `
