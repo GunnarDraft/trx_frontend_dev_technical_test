@@ -46,8 +46,8 @@ const SearchVeicle = styled.div`
     flex:1;    
     width:100%; 
     max-width:1082px;
-    min-width: min-content;
-    background:#afcfcf3f;
+    min-width: min-content;   
+    background:#cfdada4f;
     backdrop-filter:blur(18px);
     border-radius:4px;
     display:flex;
@@ -55,6 +55,7 @@ const SearchVeicle = styled.div`
     align-items:center;
     justify-content:flex-start; 
     max-height:min-content;
+    box-shadow: 1px 1px 4px #6f6f6f6f;
 `
 const DataGridStyled = styled(DataGrid)`
     background:#cfdada3f;
@@ -64,6 +65,8 @@ const DataGridStyled = styled(DataGrid)`
    & div{
        border-color:#afbaba6f !important;
    } 
+    box-shadow: 1px 1px 4px #6f6f6f6f;
+
 `
 const MapContainer = styled.div`
     margin:16px;

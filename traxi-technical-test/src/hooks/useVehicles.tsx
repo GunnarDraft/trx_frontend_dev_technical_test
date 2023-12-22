@@ -30,5 +30,5 @@ export const useVehicles = () => {
         setFilter(event.target.value);
     };
 
-    return { filter, handleFilterChange, filteredVehicles }
+    return { filter, handleFilterChange, filteredVehicles, vehicleWithIDs }
 }

@@ -3,7 +3,8 @@ import { MapContainer } from '@/styles/styles';
 import { APIProvider, AdvancedMarker, InfoWindow, Map, useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useEffect, useState } from 'react';
 import formatted from "../../../assets/data";
- 
+import { useVehicles } from '@/hooks/useVehicles'
+
 type MapComponentProps = {
     markerPosition: number;
 };
@@ -12,6 +13,7 @@ export default function MapComponent({ markerPosition }: MapComponentProps) {
     
     const [vehicle, setVehicle] = useState(formatted[1]);
     const [open, setOpen] = useState(false)
+    const { vehicleWithIDs } = useVehicles();
 
     useEffect(() => {
         setVehicle(formatted[markerPosition])
@@ -64,7 +66,9 @@ export default function MapComponent({ markerPosition }: MapComponentProps) {
                     </AdvancedMarker>
                     {
                         open && <InfoWindow position={vehicle} onCloseClick={() => setOpen(false)}>
-                            Info
+                            Placa: {vehicleWithIDs[markerPosition]?.placa}   <br />
+                            Color: {vehicleWithIDs[markerPosition]?.COLOR}   <br />
+                            Modelo: {vehicleWithIDs[markerPosition]?.MODEL}
                         </InfoWindow>
                     }
                 </Map>

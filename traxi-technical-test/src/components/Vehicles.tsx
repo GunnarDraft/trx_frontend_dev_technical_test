@@ -70,7 +70,7 @@ type VeicleListComponentProps = {
     onRowClick: (rowId: number) => void;
 };
 export default function VeicleListComponent({ onRowClick }: VeicleListComponentProps) {
-    
+
     const { filter, handleFilterChange, filteredVehicles } = useVehicles();
 
     return (<>
