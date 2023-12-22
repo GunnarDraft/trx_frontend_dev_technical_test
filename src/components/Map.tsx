@@ -55,6 +55,7 @@ export default function MapComponent({ markerPosition }: MapComponentProps) {
                     minZoom={10}
                     center={vehicle}
                     mapId={'ea50c2cff24dbc08'}
+                    fullscreenControl={false}
                 >
                     <Directions /> 
                     <AdvancedMarker
